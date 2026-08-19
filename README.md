@@ -4,23 +4,21 @@ A full-stack online employment recruitment platform with role-based workflows fo
 
 ## Live Demo
 
-Deploy your own always-on instance in ~2 minutes (the repo is deployment-ready: `Dockerfile`, `Procfile`, gunicorn, env-based config):
+The repo is deployment-ready (`Dockerfile`, `render.yaml`, `Procfile`, gunicorn, env-based config). Easiest path — **Render Blueprint (one click, free tier):**
 
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=git&repository=github.com/MohanaRupaKalluri/EmpRecProcess&branch=master&builder=dockerfile&name=emprecprocess)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/MohanaRupaKalluri/EmpRecProcess)
 
-**Koyeb (recommended — free instance, always on):**
-1. Click the button above and sign in with GitHub.
-2. Builder: **Dockerfile**. Exposed port: **7860** (or set `PORT`).
-3. Add environment variables `MONGO_URI` and `SECRET_KEY` (mark both as secrets).
-4. Deploy — the app is served at `https://<name>-<org>.koyeb.app`.
+1. Click the button and sign in with GitHub (existing Render accounts work).
+2. Render reads `render.yaml` — builder, port, and health check are already set.
+3. Paste your `MONGO_URI` when prompted (`SECRET_KEY` is auto-generated).
+4. Click **Apply** — the app builds and goes live at `https://emprecprocess.onrender.com`.
 
-**Hugging Face Spaces (free, always on):**
-1. Create a new Space → SDK **Docker** → Blank.
-2. Push this repo's files into the Space (`git remote add space https://huggingface.co/spaces/<user>/<space>`).
-3. In Space → Settings → Variables and secrets, add `MONGO_URI` and `SECRET_KEY`.
-4. The Space serves on port **7860**, which this `Dockerfile` already uses.
+**Alternatives (also free):**
+- **Hugging Face Spaces** — new Space, SDK **Docker**, push this repo, add `MONGO_URI` / `SECRET_KEY` under Settings, Variables and secrets (serves on port **7860**).
+- **Koyeb** — [deploy link](https://app.koyeb.com/deploy?type=git&repository=github.com/MohanaRupaKalluri/EmpRecProcess&branch=master&builder=dockerfile&name=emprecprocess), builder **Dockerfile**, port **7860**.
 
-> After deploying, add `0.0.0.0/0` (or the host's egress IPs) under **MongoDB Atlas → Network Access**, otherwise database calls time out.
+> After deploying, add `0.0.0.0/0` (or the host's egress IPs) under **MongoDB Atlas, Network Access**, otherwise database calls time out.
+> Render's free instance sleeps after inactivity and wakes on the first request (~30s cold start).
 
 ## Features
 
