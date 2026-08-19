@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 7860
 
 # MONGO_URI and SECRET_KEY must be provided as environment variables / secrets.
-CMD gunicorn --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 main:app
+CMD gunicorn --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 wsgi:app
