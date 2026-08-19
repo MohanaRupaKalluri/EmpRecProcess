@@ -69,9 +69,36 @@ EmpRecProcess/
 └── README.md            # Project documentation
 ```
 
+## Live Demo / Deployment
+
+The previous Render demo is offline (free Render web services are suspended after inactivity).
+To bring the demo back, deploy the Flask app to any of these free hosts:
+
+| Host | Notes |
+|---|---|
+| **Render** (recreate service) | Free web service; sleeps after 15 min idle. Build: `pip install -r requirements.txt`, Start: `gunicorn main:app` |
+| **Hugging Face Spaces (Docker)** | Free, always-on, allows outbound MongoDB Atlas connections |
+| **Koyeb** | Free instance, no cold-start sleep, Git-based deploy |
+| **Fly.io** | Free allowance, `fly launch` on the repo |
+| **Railway** | Simple Git deploy, trial credits |
+
+Required environment variables on any host:
+
+```
+MONGODB_URI=<your MongoDB Atlas connection string>
+FLASK_SECRET_KEY=<random secret>
+```
+
+Also add `0.0.0.0/0` (or the host's IPs) to MongoDB Atlas Network Access, and make sure the app binds to the platform port:
+
+```python
+import os
+app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+```
+
 ## Portfolio
 
-See this project in my data/AI portfolio: **[meetmohana.lovable.app](https://meetmohana.lovable.app/)**
+See this project in my data/AI portfolio: **[mohana-kalluri.lovable.app](https://mohana-kalluri.lovable.app/)**
 
 ## License
 
