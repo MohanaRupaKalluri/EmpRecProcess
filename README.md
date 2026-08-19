@@ -71,7 +71,7 @@ EmpRecProcess/
 
 ## Portfolio
 
-See this project in my data/AI portfolio: **[mohana-kalluri.lovable.app](https://mohana-kalluri.lovable.app/)**
+See this project in my data/AI portfolio: **[meetmohana.lovable.app](https://meetmohana.lovable.app/)**
 
 ## License
 
