@@ -10,15 +10,16 @@ from bson import ObjectId
 from flask import Flask
 from pymongo import MongoClient
 
+from db import get_database
+
 app = Flask(__name__)
 
-# Set the secret key for your Flask app (strong and random)
-app.secret_key = secrets.token_hex(16)  # This generates a random secret key (e.g., 32 hexadecimal characters)
+# Flask session secret: from the environment, else a random per-process key.
+app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(16)
 
-
-# Connect to MongoDB Atlas
-client = MongoClient("mongodb+srv://Project:Nosql@empreccluster.2hqrljj.mongodb.net/?retryWrites=true&w=majority&appName=EmpRecCluster")
-EmpRecCluster = client['EmpRecCluster']
+# Database: a real MongoDB when MONGO_URI is set, otherwise an embedded
+# demo store seeded on startup (see db.py). No credentials in source code.
+client, EmpRecCluster, DEMO_MODE = get_database()
 admin_collection = EmpRecCluster["admin"]
 companies_collection = EmpRecCluster["companies"]
 recruiter_collection = EmpRecCluster["recruiter"]

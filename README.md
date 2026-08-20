@@ -4,21 +4,50 @@ A full-stack online employment recruitment platform with role-based workflows fo
 
 ## Live Demo
 
-The repo is deployment-ready (`Dockerfile`, `render.yaml`, `Procfile`, gunicorn, env-based config). Easiest path — **Render Blueprint (one click, free tier):**
+**No database setup required.** The app ships with an embedded demo database
+(`db.py`) seeded on startup with sample companies, recruiters, job seekers,
+skills and job posts. Set no environment variables and it just runs.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/MohanaRupaKalluri/EmpRecProcess)
+### Deploy free on Hugging Face Spaces (always-on, no card)
 
-1. Click the button and sign in with GitHub (existing Render accounts work).
-2. Render reads `render.yaml` — builder, port, and health check are already set.
-3. Paste your `MONGO_URI` when prompted (`SECRET_KEY` is auto-generated).
-4. Click **Apply** — the app builds and goes live at `https://emprecprocess.onrender.com`.
+1. Create a Space: https://huggingface.co/new-space -> name `emprecprocess`, SDK **Docker** (blank), Public.
+2. Push this repo to the Space:
+   ```bash
+   git clone https://github.com/MohanaRupaKalluri/EmpRecProcess.git
+   cd EmpRecProcess
+   git remote add space https://huggingface.co/spaces/<your-username>/emprecprocess
+   git push space HEAD:main
+   ```
+3. Add this front matter at the top of the Space's `README.md`:
+   ```yaml
+   ---
+   title: Employment Recruitment System
+   sdk: docker
+   app_port: 7860
+   ---
+   ```
+4. It builds and goes live at `https://<your-username>-emprecprocess.hf.space`.
 
-**Alternatives (also free):**
-- **Hugging Face Spaces** — new Space, SDK **Docker**, push this repo, add `MONGO_URI` / `SECRET_KEY` under Settings, Variables and secrets (serves on port **7860**).
-- **Koyeb** — [deploy link](https://app.koyeb.com/deploy?type=git&repository=github.com/MohanaRupaKalluri/EmpRecProcess&branch=master&builder=dockerfile&name=emprecprocess), builder **Dockerfile**, port **7860**.
+### Demo logins
 
-> After deploying, add `0.0.0.0/0` (or the host's egress IPs) under **MongoDB Atlas, Network Access**, otherwise database calls time out.
-> Render's free instance sleeps after inactivity and wakes on the first request (~30s cold start).
+| Role | Email | Password |
+| --- | --- | --- |
+| Company | `hr@northwind.example` | `demo123` |
+| Recruiter | `recruiter@demo.com` | `demo123` |
+| Job seeker | `seeker@demo.com` | `demo123` |
+
+### Run locally
+
+```bash
+pip install -r requirements.txt
+python wsgi.py     # http://localhost:7860
+```
+
+### Using a real MongoDB instead
+
+Set `MONGO_URI` (optionally `MONGO_DB`, `SECRET_KEY`) and the app connects to
+that cluster instead of the embedded demo database. No credentials are stored
+in source code.
 
 ## Features
 

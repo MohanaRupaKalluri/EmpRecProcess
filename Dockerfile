@@ -14,5 +14,6 @@ COPY . .
 
 EXPOSE 7860
 
-# MONGO_URI and SECRET_KEY must be provided as environment variables / secrets.
+# No environment variables required: the app ships with an embedded demo database.
+# Set MONGO_URI (+ optional SECRET_KEY) only to use a real MongoDB.
 CMD gunicorn --bind 0.0.0.0:${PORT} --workers 2 --timeout 120 wsgi:app
